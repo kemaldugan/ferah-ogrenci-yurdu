@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @db.Uuid
+  email         String?   @unique
+  full_name     String?
+  role          String?   // Enum yerine String yaparak hata payını sıfırlıyoruz
+  password_hash String?
+  students      Student[]
+  @@map("users")
+}
+
+model Student {
+  id                    String                @id @db.Uuid
+  user_id               String?               @db.Uuid
+  user                  User?                 @relation(fields: [user_id], references: [id])
+  student_number        String                @unique
+  class_name            String?
+  daily_entries         DailyEntry[]
+  dormitory_evaluations DormitoryEvaluation[]
+  @@map("students")
+}
+
+model Subject {
+  id            String       @id @db.Uuid
+  name          String       @unique
+  code          String?      @unique
+  color_hex     String?
+  daily_entries DailyEntry[]
+  @@map("subjects")
+}
+
+model DailyEntry {
+  id                String   @id @db.Uuid
+  student_id        String   @db.Uuid
+  student           Student  @relation(fields: [student_id], references: [id])
+  subject_id        String   @db.Uuid
+  subject           Subject  @relation(fields: [subject_id], references: [id])
+  entry_date        DateTime @db.Date
+  questions_solved  Int
+  questions_correct Int
+  questions_wrong   Int
+  @@unique([student_id, subject_id, entry_date], name: "daily_entry_id")
+  @@map("daily_entries")
+}
+
+model DormitoryEvaluation {
+  id                      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  student_id              String   @db.Uuid
+  student                 Student  @relation(fields: [student_id], references: [id])
+  evaluation_date         DateTime @db.Date
+  school_program_score    Int      @default(3)
+  study_program_score     Int
+  prayer_program_score    Int
+  cleanliness_score       Int
+  peer_relations_score    Int
+  teacher_relations_score Int
+  general_discipline_score Int
+  school_program_notes    String?
+  study_program_notes     String?
+  prayer_program_notes    String?
+  cleanliness_notes       String?
+  peer_relations_notes    String?
+  teacher_relations_notes String?
+  general_discipline_notes String?
+  overall_comment         String?
+  @@unique([student_id, evaluation_date], name: "dorm_eval_id")
+  @@map("dormitory_evaluations")
+}
