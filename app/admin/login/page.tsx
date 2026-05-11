@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +11,7 @@ export default function AdminLoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'admin' && password === 'ferah2026admin') {
       localStorage.setItem('adminAuth', 'true');
       router.push('/admin');
     } else {
