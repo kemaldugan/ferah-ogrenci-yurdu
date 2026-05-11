@@ -11,7 +11,7 @@ model User {
   id            String    @id @db.Uuid
   email         String?   @unique
   full_name     String?
-  role          String?   // Enum yerine String yaparak hata payını sıfırlıyoruz
+  role          String?
   password_hash String?
   students      Student[]
   @@map("users")
@@ -25,6 +25,7 @@ model Student {
   class_name            String?
   daily_entries         DailyEntry[]
   dormitory_evaluations DormitoryEvaluation[]
+  points                Point[]
   @@map("students")
 }
 
@@ -73,4 +74,15 @@ model DormitoryEvaluation {
   overall_comment         String?
   @@unique([student_id, evaluation_date], name: "dorm_eval_id")
   @@map("dormitory_evaluations")
+}
+
+model Point {
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  student_id  String   @db.Uuid
+  student     Student  @relation(fields: [student_id], references: [id])
+  points      Int
+  reason      String
+  given_by    String
+  created_at  DateTime @default(now())
+  @@map("points")
 }
