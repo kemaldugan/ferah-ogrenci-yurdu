@@ -7,14 +7,14 @@ export default function HomePage() {
             <img src="/logo.jpeg" alt="Ferah Öğrenci Yurdu" className="h-24 w-24 rounded-full object-cover" />
             <div>
               <h1 className="text-2xl font-black text-slate-900">Ferah Öğrenci Yurdu</h1>
-              <p className="text-sm text-slate-600 italic">Dikili / İzmir • Zirvede Yarışanlar</p>
+              <p className="text-sm text-slate-600 italic">Dikili / İzmir</p>
             </div>
           </div>
         </div>
       </header>
       <div className="max-w-6xl mx-auto px-4 py-12 text-center">
         <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">Zirvede Yarışanlar</h2>
-        <p className="text-lg md:text-xl text-slate-600 mb-8">Geleceğin Eğitim Modeli • 21. Yüzyıl Öğrencileri İçin</p>
+        <p className="text-lg md:text-xl text-slate-600 mb-8">Geleceğin Eğitim Modeli</p>
         <div className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-2xl shadow-2xl p-6 md:p-8 mb-12 border-4 border-red-800">
           <div className="text-4xl md:text-5xl mb-4">🇹🇷</div>
           <p className="text-base md:text-lg font-semibold leading-relaxed italic max-w-4xl mx-auto">"Bir milletin ıslahı kötülerin imhası ile değil, yeni neslin eğitim ve terbiyesi ile mümkündür"</p>

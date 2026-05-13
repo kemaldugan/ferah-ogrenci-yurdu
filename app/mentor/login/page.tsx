@@ -3,19 +3,17 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function MentorLoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (username === 'mentor' && password === 'ferah2026mentor') {
+    if (pin === '2024') {
       localStorage.setItem('mentorAuth', 'true');
       router.push('/mentor');
     } else {
-      setError('Kullanıcı adı veya şifre hatalı!');
+      setError('PIN kodu hatalı!');
     }
   };
 
@@ -31,12 +29,8 @@ export default function MentorLoginPage() {
         </div>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">Kullanıcı Adı</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-purple-500 focus:outline-none" placeholder="Kullanıcı adınızı girin" required />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">Şifre</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-purple-500 focus:outline-none" placeholder="Şifrenizi girin" required />
+            <label className="block text-sm font-semibold text-slate-700 mb-2">PIN Kodu</label>
+            <input type="password" value={pin} onChange={(e) => setPin(e.target.value)} className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-purple-500 focus:outline-none text-center text-2xl font-bold tracking-widest" placeholder="••••" maxLength={4} required />
           </div>
           {error && <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">{error}</div>}
           <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 rounded-lg">Giriş Yap</button>
